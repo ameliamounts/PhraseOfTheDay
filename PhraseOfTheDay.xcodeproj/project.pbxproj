@@ -45,6 +45,7 @@
 		179F60CD2C9DA12F00BC771D /* PhraseOfTheDayUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhraseOfTheDayUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		179F60D12C9DA12F00BC771D /* PhraseOfTheDayUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseOfTheDayUITests.swift; sourceTree = "<group>"; };
 		179F60D32C9DA12F00BC771D /* PhraseOfTheDayUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseOfTheDayUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		179F60E02CAA1E3200BC771D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +76,7 @@
 		179F60A92C9DA12E00BC771D = {
 			isa = PBXGroup;
 			children = (
+				179F60E02CAA1E3200BC771D /* Info.plist */,
 				179F60B42C9DA12E00BC771D /* PhraseOfTheDay */,
 				179F60C62C9DA12F00BC771D /* PhraseOfTheDayTests */,
 				179F60D02C9DA12F00BC771D /* PhraseOfTheDayUITests */,
@@ -420,6 +422,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PhraseOfTheDay/Preview Content\"";
+				DEVELOPMENT_TEAM = 2BTZ8XDDPY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -456,6 +459,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PhraseOfTheDay/Preview Content\"";
+				DEVELOPMENT_TEAM = 2BTZ8XDDPY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -531,6 +535,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -552,6 +557,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;

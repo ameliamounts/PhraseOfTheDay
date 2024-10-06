@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct PhraseOfTheDayApp: App {
     var body: some Scene {
-        WindowGroup {
+        WindowGroup("Get Phrase", id: "main") {
             ContentView()
         }
     }
