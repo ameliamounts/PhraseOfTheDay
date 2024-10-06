@@ -1,42 +1,9 @@
-# Generate phrases via the gemini API
-# Store them in a date dictionary or a set? 
-# Could queue them and the pop them off the queue
-# Save them in a set and check if in set before adding to the queue
-
-# Retrieve json of phrases
-
-# Parse Json of phrases into a set and queue
-
-# Hold the list somewhere outside of the program so when it starts up 
-# it doesn't repeat the phrasess that have already been used, then will need to insert them into the set upon runtime?
-
 import queue
 from datetime import date
 import google.generativeai as genai
 import typing_extensions as typing
 import os
 import json
-
-# test_data = [{"description": "To be in a brown study", "example": "She sat in a brown study, lost in thought.", "phrase": "in a brown study"}, 
-#             {"description": "To be in a pickle", "example": "He was in a pickle after losing his keys.", "phrase": "in a pickle"}, 
-#             {"description": "To be in a stew", "example": "I'm in a stew about the upcoming exam.", "phrase": "in a stew"}, 
-#             {"description": "To have a whale of a time", "example": "We had a whale of a time at the party.", "phrase": "whale of a time"}, 
-#             {"description": "To be in a fix", "example": "He was in a fix after forgetting his passport.", "phrase": "in a fix"}, 
-#             {"description": "To be a bit of a handful", "example": "The new puppy is a bit of a handful.", "phrase": "a bit of a handful"}, 
-#             {"description": "To be all at sea", "example": "He felt all at sea after moving to a new city.", "phrase": "all at sea"}, 
-#             {"description": "To be up the creek", "example": "He's up the creek without a paddle now that his car has broken down.", "phrase": "up the creek"}, 
-#             {"description": "To be in a spot", "example": "He was in a spot after accidentally revealing the surprise.", "phrase": "in a spot"}, 
-#             {"description": "To be in a tizzy", "example": "She was in a tizzy trying to find her lost keys.", "phrase": "in a tizzy"}, 
-#             {"description": "To be in a quandary", "example": "He was in a quandary about which job to accept.", "phrase": "in a quandary"}, 
-#             {"description": "To be in a blue funk", "example": "He's been in a blue funk ever since his girlfriend left him.", "phrase": "in a blue funk"}, 
-#             {"description": "To be on the horns of a dilemma", "example": "She was on the horns of a dilemma about whether to stay or leave.", "phrase": "on the horns of a dilemma"}, 
-#             {"description": "To be in a flap", "example": "I was in a flap when I realized I forgot my phone.", "phrase": "in a flap"}, 
-#             {"description": "To be in a lather", "example": "He was in a lather after having to give a speech.", "phrase": "in a lather"}, 
-#             {"description": "To be in a fog", "example": "He was in a fog after the car accident.", "phrase": "in a fog"}, 
-#             {"description": "To be in a bind", "example": "He was in a bind after his car broke down on the way to the airport.", "phrase": "in a bind"}, 
-#             {"description": "To be in a state", "example": "He was in a state after his team lost the championship.", "phrase": "in a state"}, 
-#             {"description": "To be in a right old mess", "example": "The kitchen was in a right old mess after the party.", "phrase": "in a right old mess"}, 
-#             {"description": "To be in a hole", "example": "He's in a hole financially after losing his job.", "phrase": "in a hole"}]
 
 class PhraseType(typing.TypedDict):
     phrase: str
@@ -136,4 +103,3 @@ class PhraseGenerator:
         todays_phrase.date = date
         self.add_to_recents(todays_phrase)
         return todays_phrase.phrase
-
