@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, request, jsonify
 from phrase_generation import PhraseGenerator
 from datetime import date
 
@@ -10,6 +10,8 @@ def create_app(test_config=None):
 
     @app.route('/todaysPhrase')
     def getPhrase():
-        return phrase_generator.get_todays_phrase(date.today()) # todo date needs to eventually be passed in from the client side
+        headers = request.headers
+        date = headers.get('Date')
+        return jsonify(phrase_generator.get_todays_phrase(date))
     
     return app
