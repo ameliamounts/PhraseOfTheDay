@@ -13,18 +13,39 @@ struct FetchedPhrase: Codable {
     let example: String
 }
 
-
 struct ContentView: View {
+    @AppStorage("lastFetchDate") private var lastFetchDate: String = ""
+    // Timer that fires periodically to check if the date has changed
+    private let timer = Timer.publish(every: 3600, on: .main, in: .common).autoconnect() // Check every hour
+
+    @State private var fetchedPhrase: String = ""
+    
     @State private var phrase: String = "Loading..."
     @State private var description: String = ""
     @State private var example: String = ""
+    
+    private func getCurrentDateString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.string(from: Date())
+    }
+
+
+    private func fetchPhraseIfDateChanged() {
+        let currentDate = getCurrentDateString()
+        
+        if currentDate != lastFetchDate {
+            fetchPhrase() // Fetch a new phrase if the date has changed
+            lastFetchDate = currentDate // Update last fetch date
+        }
+    }
 
     var body: some View {
         VStack {
-            Text(phrase).font(.largeTitle).bold().multilineTextAlignment(.center).foregroundColor(Color("CustomPhraseColor"))
-            Text(description).font(.headline).multilineTextAlignment(.center)
+            Text(phrase.uppercased()).font(.custom("Fraunces", size: 44)).bold().multilineTextAlignment(.center).foregroundColor(Color("CustomPhraseColor"))
+            Text(description).font(.custom("Epilogue", size: 18)).multilineTextAlignment(.center)
                 .padding().foregroundColor(Color("CustomDescriptionColor"))
-            Text(example).font(.body).multilineTextAlignment(.center).foregroundColor(Color("CustomDescriptionColor"))
+            Text(example).font(.custom("Epilogue", size: 16)).multilineTextAlignment(.center).foregroundColor(Color("CustomDescriptionColor"))
         }
         .onAppear {
             fetchPhrase()
@@ -82,12 +103,7 @@ struct ContentView: View {
 
         task.resume()
     }
-    
-    func getCurrentDateString() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd" // Customize format if needed
-        return dateFormatter.string(from: Date())
-    }
+
 }
 
 struct ContentView_Previews: PreviewProvider {
