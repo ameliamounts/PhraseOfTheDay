@@ -16,7 +16,7 @@ struct FetchedPhrase: Codable {
 struct ContentView: View {
     @AppStorage("lastFetchDate") private var lastFetchDate: String = ""
     // Timer that fires periodically to check if the date has changed
-    private let timer = Timer.publish(every: 3600, on: .main, in: .common).autoconnect() // Check every hour
+    private let timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect() // Check every hour
 
     @State private var fetchedPhrase: String = ""
     
