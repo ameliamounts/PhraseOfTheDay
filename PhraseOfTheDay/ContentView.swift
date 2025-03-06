@@ -16,7 +16,8 @@ struct FetchedPhrase: Codable {
 struct ContentView: View {
     @AppStorage("lastFetchDate") private var lastFetchDate: String = ""
     // Timer that fires periodically to check if the date has changed
-    private let timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect() // Check every hour
+    private let timer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
+
 
     @State private var fetchedPhrase: String = ""
     
@@ -87,9 +88,9 @@ struct ContentView: View {
 //                    self.phrase = fetchedPhrase
 //                }
             do {
+                print(data)
                 let decoder = JSONDecoder()
                 let fetchedPhrase = try decoder.decode(FetchedPhrase.self, from: data)
-                
                 DispatchQueue.main.async {
                     // Update the UI with the parsed data
                     self.phrase = fetchedPhrase.phrase

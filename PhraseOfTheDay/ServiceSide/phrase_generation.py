@@ -1,5 +1,5 @@
 from datetime import date
-import google.generativeai as genai
+from google import genai
 import json
 import os
 import queue
@@ -19,13 +19,13 @@ class PhraseGenerator:
         self.m_phrases_queue = queue.Queue()
         self.m_todays_phrase = None
         self.m_last_three_phrases = []
-        self._fill_queue()
+        if self.m_phrases_queue.empty():
+            self._fill_queue()
     
     def _fill_queue(self, retries=0):
         # generate 20 phrases
         used_phrases_str = self.database.get_used_phrases_string()
-        genai.configure(api_key=os.environ["GEMINI_API_KEY"])
-        model = genai.GenerativeModel("gemini-1.5-flash")
+        client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
         if not used_phrases_str == "":
             prompt = "Collect quirky and largely \
                     unknown English turns of phrases between 2 and 10 words long used \
@@ -38,7 +38,12 @@ class PhraseGenerator:
                     unknown English turns of phrases between 2 and 10 words long used \
                     within the last 200 years. Return 20 \
                     phrases, provide a descrption, and use the phrase properly in a sentance"
-        response = model.generate_content(prompt, generation_config=genai.GenerationConfig(response_mime_type="application/json", response_schema=list[PhraseType]))
+        response = client.models.generate_content(model="gemini-2.0-flash", 
+                                                  contents=prompt, 
+                                                  config={
+                                                      'response_mime_type': 'application/json',
+                                                      'response_schema': list[PhraseType],
+                                                      })
         try:
             response_json = json.loads(response.text + "\n")
             for entry in response_json:
@@ -64,9 +69,12 @@ class PhraseGenerator:
             self._fill_queue()
         # we know it's not empty now
         todays_phrase = self.m_phrases_queue.get()
-        print("todays phrase: ", todays_phrase.get_phrase(), todays_phrase.get_description(), todays_phrase.get_example())
+        while (self.database.phrase_exists(todays_phrase.get_phrase())):
+            while self.m_phrases_queue.empty():
+                self._fill_queue()
+            todays_phrase = self.m_phrases_queue.get()
+
         todays_phrase.set_date(date)
-        # adding to database here (todo rmv)
         self.database.insert_phrase(todays_phrase.get_phrase(), todays_phrase.get_description(), todays_phrase.get_example(), date)
         self.add_to_recents(todays_phrase)
         return todays_phrase

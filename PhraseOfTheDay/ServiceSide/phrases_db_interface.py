@@ -20,6 +20,8 @@ class db_interface:
         conn.close()
 
     def insert_phrase(self, phrase, description, example, date_used=None):
+        if (self.phrase_exists(phrase)):
+            return False
         conn = sqlite3.connect('phrases.db')
         cursor = conn.cursor()
         cursor.execute('''
